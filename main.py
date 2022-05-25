@@ -1,16 +1,111 @@
-# This is a sample Python script.
+import tkinter
+from tkinter import *
+import random
+from tkinter import messagebox
 
-# Press ⇧F10 to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+answers = [
+    "python",
+    "java",
+    "swift",
+    "canada",
+    "india",
+    "america",
+    "london",
+    "foolish"
+]
+
+words = [
+    "nptoyh",
+    "avja",
+    "wfsit",
+    "cdanaa",
+    "aidin",
+    "aiearcm",
+    "odnlon",
+    "ohlfios"
+]
+
+num = random.randrange(0, len(words), 1)
+
+def default():
+    global words,answers,num
+    lbl.config(text = words[num])
+
+def res():
+    global words,answers,num
+    num = random.randrange(0, len(words), 1)
+    lbl.config(text = words[num])
+    e1.delete(0, END)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+def checkans():
+    global words,answers,num
+    var = e1.get()
+    if var == answers[num]:
+        messagebox.showinfo("Success", "YOU ARE CORRECT!!!!")
+        res()
+    else:
+        messagebox.showerror("Error", "TRY AGAIN!!!!")
+        e1.delete(0, END)
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+root = tkinter.Tk()
+root.geometry("350x400+400+300")
+root.title("JUMBLED WORDS GAME")
+root.configure(background = "#000000")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+lbl = Label(
+    root,
+    text = "Your here",
+    font = ("Verdana", 18),
+    bg = "#000000",
+    fg = "#FFFFFF",
+)
+lbl.pack(pady = 30,ipady=10,ipadx=10)
+
+ans1 = StringVar()
+e1 = Entry(
+    root,
+    font = ("Verdana", 16),
+    textvariable = ans1,
+)
+e1.pack(ipady=5,ipadx=5)
+
+btncheck = Button(
+    root,
+    text = "Check",
+    font = ("Comic sans ms", 16),
+    width = 16,
+    bg = "#4c4b4b",
+    fg = "#6ab04c",
+    relief = GROOVE,
+    command = checkans,
+)
+btncheck.pack(pady = 40)
+
+btnreset = Button(
+    root,
+    text = "Reset",
+    font = ("Comic sans ms", 16),
+    width = 16,
+    bg = "#4c4b4b",
+    fg = "#EA425C",
+    relief = GROOVE,
+    command = res,
+)
+btnreset.pack()
+
+btnquit = Button(
+    root,
+    text = "Quit",
+    font = ("Comic sans ms", 12),
+    width = 16,
+    bg = "#4c4b4b",
+    fg = "#000000",
+    relief = GROOVE,
+    command = quit,
+)
+btnquit.pack(pady=40)
+
+default()
+root.mainloop()
